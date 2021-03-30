@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using WebApp.Models;
 using WebApp.Publishers;
+using HealthChecksUiSettings = HealthChecks.UI.Configuration.Settings;
 
 namespace WebApp
 {
@@ -39,6 +40,28 @@ namespace WebApp
         {
             builder.Services.AddSingleton((Func<IServiceProvider, IHealthCheckPublisher>) (sp => new ApplicationInsightsAvailabilityPublisher(sp.GetRequiredService<TelemetryClient>())));
             return builder;
+        }
+
+        public static HealthChecksUiSettings AddHealthCheckEndpoints(this HealthChecksUiSettings settings, AcuWebSites websites)
+        {
+            foreach (var website in websites ?? new AcuWebSites())
+            {
+                settings.AddHealthCheckEndpoint(website.Name, website.EndpointUrl);
+            }
+
+            return settings;
+        }
+
+        public static HealthChecksUiSettings AddWebhookNotifications(this HealthChecksUiSettings settings, Webhooks webhooks)
+        {
+            foreach (var webhook in webhooks ?? new Webhooks())
+            {
+                settings.AddWebhookNotification(webhook.Name, webhook.Url, webhook.FailurePayload,
+                    webhook.RestorePayload, webhook.ShouldNotifyFunc, webhook.CustomMessageFunc,
+                    webhook.CustomDescriptionFunc);
+            }
+
+            return settings;
         }
     }
 }

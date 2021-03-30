@@ -29,7 +29,7 @@ namespace WebApp
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = Settings.Title, Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = Constants.Title, Version = "v1" });
             });
 
             services.AddHealthChecks()
@@ -45,16 +45,14 @@ namespace WebApp
                 options.Timeout = TimeSpan.FromSeconds(60);
             });
 
-            services.AddHealthChecksUI(setupSettings: settings =>
+            services.AddHealthChecksUI(settings =>
             {
-                settings.SetApiMaxActiveRequests(Settings.MaxHealthChecksRequests);
-                settings.MaximumHistoryEntriesPerEndpoint(Settings.MaxHealthChecksEntries);
-                settings.SetEvaluationTimeInSeconds(Settings.EvaluationTimeInSeconds);
-                settings.SetMinimumSecondsBetweenFailureNotifications(Settings.NotificationTimeInSeconds);
-                foreach (var acuWebSite in Settings.AcuWebSites)
-                {
-                    settings.AddHealthCheckEndpoint(acuWebSite.Name, acuWebSite.EndpointUrl);
-                }
+                settings.SetApiMaxActiveRequests(Constants.MaxHealthChecksRequests);
+                settings.MaximumHistoryEntriesPerEndpoint(Constants.MaxHealthChecksEntries);
+                settings.SetEvaluationTimeInSeconds(Constants.EvaluationTimeInSeconds);
+                settings.SetMinimumSecondsBetweenFailureNotifications(Constants.NotificationTimeInSeconds);
+                settings.AddHealthCheckEndpoints(Settings.AcuWebSites);
+                settings.AddWebhookNotifications(Settings.Webhooks);
             }).AddInMemoryStorage();
         }
 
@@ -64,7 +62,7 @@ namespace WebApp
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", $"{Settings.Title} v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", $"{Constants.Title} v1"));
             }
 
             app.UseHttpsRedirection();
