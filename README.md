@@ -18,5 +18,7 @@ Providing healthchecks tooling for acumatica websites continuous monitoring
 >>
 >> :zap: alerts for microsoft teams
 >>
+> ![AcuWebSitesMonitorScreen](Screenshots/AcuWebSitesMonitor.png)
+>
 
 **`Tools`** : vs19, webapi, net 5.0, healthchecks, serilog
