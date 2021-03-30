@@ -35,6 +35,7 @@ namespace WebApp
             services.AddHealthChecks()
                 .AddUrls(Settings.AcuWebSites, TimeSpan.FromSeconds(2))
                 .AddSqlServers(Settings.AcuWebSites, TimeSpan.FromSeconds(2))
+                .AddActiveUsers(Settings.AcuWebSites, TimeSpan.FromSeconds(2))
                 .AddApplicationInsightsAvailabilityPublisher()
                 .AddApplicationInsightsPublisher();
 

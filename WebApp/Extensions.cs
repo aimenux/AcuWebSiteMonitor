@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.ApplicationInsights;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
+using WebApp.Checkers;
 using WebApp.Models;
 using WebApp.Publishers;
 using HealthChecksUiSettings = HealthChecks.UI.Configuration.Settings;
@@ -20,7 +21,7 @@ namespace WebApp
             return acuWebSites.Aggregate(builder,
                 (current, acuWebSite) => current.AddUrlGroup(name: $"Url [{acuWebSite.Name}]",
                     uri: new Uri(acuWebSite.Url),
-                    tags: new List<string> {"url", acuWebSite.Name}, 
+                    tags: new List<string> {"url", acuWebSite.Name},
                     timeout: timeout));
         }
 
@@ -33,6 +34,18 @@ namespace WebApp
                 (current, acuWebSite) => current.AddSqlServer(name: $"Sql [{acuWebSite.Name}]",
                     connectionString: acuWebSite.ConnectionString, 
                     tags: new List<string> {"sql", acuWebSite.Name},
+                    timeout: timeout));
+        }
+
+        public static IHealthChecksBuilder AddActiveUsers(
+            this IHealthChecksBuilder builder,
+            AcuWebSites acuWebSites,
+            TimeSpan? timeout = null)
+        {
+            return acuWebSites.Aggregate(builder,
+                (current, acuWebSite) => current.AddCheck(name: $"Users [{acuWebSite.Name}]",
+                    instance: new ActiveUsersChecker(acuWebSite),
+                    tags: new List<string> {"users", acuWebSite.Name},
                     timeout: timeout));
         }
 
