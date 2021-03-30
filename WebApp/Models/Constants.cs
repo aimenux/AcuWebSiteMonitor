@@ -10,6 +10,6 @@
 
         public const int NotificationTimeInSeconds = 30;
 
-        public const string Title = @"AcuWebSitesMonitor";
+        public const string Title = @"AcuWebSiteMonitor";
     }
 }

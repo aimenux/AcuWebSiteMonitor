@@ -1,6 +1,6 @@
 [![.NET 5](https://github.com/aimenux/AcuWebSitesMonitor/actions/workflows/ci.yml/badge.svg)](https://github.com/aimenux/AcuWebSitesMonitor/actions/workflows/ci.yml)
 
-# AcuWebSitesMonitor
+# AcuWebSiteMonitor
 ```
 Providing healthchecks tooling for acumatica websites continuous monitoring
 ```
@@ -18,7 +18,7 @@ Providing healthchecks tooling for acumatica websites continuous monitoring
 >>
 >> :zap: alerts for microsoft teams
 >>
-> ![AcuWebSitesMonitorScreen](Screenshots/AcuWebSitesMonitor.png)
+> ![AcuWebSiteMonitorScreen](Screenshots/AcuWebSiteMonitor.png)
 >
 
 **`Tools`** : vs19, webapi, net 5.0, healthchecks, serilog
