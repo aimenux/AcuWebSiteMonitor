@@ -1,4 +1,4 @@
-[![.NET 5](https://github.com/aimenux/AcuWebSitesMonitor/actions/workflows/ci.yml/badge.svg)](https://github.com/aimenux/AcuWebSitesMonitor/actions/workflows/ci.yml)
+[![.NET 5](https://github.com/aimenux/AcuWebSiteMonitor/actions/workflows/ci.yml/badge.svg)](https://github.com/aimenux/AcuWebSiteMonitor/actions/workflows/ci.yml)
 
 # AcuWebSiteMonitor
 ```
